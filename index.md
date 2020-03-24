@@ -1,1 +1,3 @@
-Hello Wangpenny 我爱汪佩妮
+---
+layout: home
+---
