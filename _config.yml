@@ -21,12 +21,12 @@ plainwhite:
   social_links:
     twitter: askwangpenny
     github:  Typhoondaddy
-    linkedIn: in/
+    linkedIn: 
     rss: rss
     # dribbble: jekyll
     # facebook: jekyll
     # flickr:   jekyll
-    # instagram: jekyll
+    # instagram: maojinr
     # linkedin: jekyll
     # pinterest: jekyll
     # youtube: jekyll
@@ -34,7 +34,7 @@ plainwhite:
     # youtube_channel_name: CloudCannon
     # telegram: jekyll
     # googleplus: +jekyll
-    # microdotblog: jekyll
+    # microdotblog: 阿台
 
     # Mastodon instances
     # mastodon:
