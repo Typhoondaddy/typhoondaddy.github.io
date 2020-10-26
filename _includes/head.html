@@ -1,9 +1,5 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
-<link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<title>{{ page.title | default: site.title }}</title>
-<link rel="icon" href="https://github.com/Typhoondaddy/typhoondaddy.github.io/blob/master/img/icon.ico" type="image/x-icon"> 
-<link rel="shortcut icon" href="https://github.com/Typhoondaddy/typhoondaddy.github.io/blob/master/img/icon.ico" type="image/x-icon">
-{% seo %}
+{% include head/meta.html %}
+{% include head/links.html %}
+{% include head/scripts.html %}
+{% include head/styles.html %}
+{% include my-head.html %}
