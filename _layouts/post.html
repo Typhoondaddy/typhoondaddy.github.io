@@ -1,85 +1,85 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-    {% include head.html %}
-	</head>
-	<body class="is-loading">
+---
+layout: default
+---
+<div class="post">
+  <article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="post__header section-padding--double">
+      <div class="grid-small">
+        <h2 itemprop="name headline">{{ page.title }}</h2>
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+        <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%-d %b %Y" }}</time>
+      </div>
+    </div>
 
-				<!-- Header -->
-        <header id="header">
-          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
-        </header>
+    {% if page.image %}
+      <div class="post__img">
+        <div>
+          <figure class="absolute-bg" style="background-image: url('{{ page.image }}');"></figure>
+        </div>
+      </div>
+    {% endif %}
 
-				<!-- Nav -->
-					<nav id="nav">
+    <div class="post__content section-padding">
+      <div class="grid">
+        <div id="markdown" itemprop="articleBody">
+          {{content}}
+        </div>
 
-            {% include nav.html %}
-						
-					</nav>
+        {% include share.html %}
+      </div>
+    </div>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">{{page.date | date_to_string}}</span>
-      				<h1>{{page.title}}</h1>
-      				<p>{{page.excerpt}}</p>
-      			</header>
-      			<div class="image main"><img src="{{page.image}}" alt=""></div>
-      			<p>{{content}}</p>
-      		</section>
+    <!-- Everything inside the #author tags pulls data from the author -->
+    {% if page.author %}
+      <div class="section-padding--none">
+        <div class="grid">
+          <hr class="sep"/>
+        </div>
+      </div>
 
-          <div class="comments-wrapper">
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
+      <div class="section-padding">
+        <div class="grid-small">
+          {% for author in page.author %}
+            {% assign authorDetails = site.author | where: "name", author %}
+            {% if forloop.first == true %}
+              <span class="post__author">Posted by
+            {% else %}
+              <span class="post__author">&amp;
+            {% endif %}
+            {% if authorDetails[0]["url"] %}<a href="{{ authorDetails[0]['url'] }}" title="More By {{ author }}">{% endif %}{{ author }}{% if authorDetails[0]["url"] %}</a>{% endif %}</span>
+            <p class="post__bio">{{ authorDetails[0]["bio"] }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
 
-              var disqus_config = function () {
-                  this.page.url = '{{ absolute_url }}{{ page.url }}';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '{{ page.url }}'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
+    {% include disqus.html %}
 
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
+  </article>
+</div>
 
-                  s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-        </div><!-- /.comments-wrapper -->
-
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                <li><a href="{{ "/blog/" | absolute_url }}" class="button">Our Blog</a></li>
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        {% include foot.html %}
-
-			</div>
-
-      <!-- Scripts -->
-  		{% include scripts-main.html %}
-			{% include tracking.html %}
-
-	</body>
-</html>
+<!-- Links to Previous/Next posts -->
+{% assign relatedTag = page.tags | first %}
+{% if relatedTag %}
+  <section class="related section-padding">
+    <div class="grid-xlarge">
+      <h2 class="related__title">Related</h2>
+      <div class="related__container">
+        {% for post in site.tags[relatedTag] limit: 3 %}
+          <article class="related__post">
+            <a class="related__link" href="{{ post.url | absolute_url }}">
+              {% if post.image %}
+                <figure class="related__img">
+                  <img src="{{ post.image }}" alt="{{ post.title }}"/>
+                </figure>
+              {% endif %}
+              <div>
+                <h2 class="related__text">{{ post.title }}</h2>
+              </div>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
